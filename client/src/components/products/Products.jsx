@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { PRODUCTS } from '../../constants/products';
 import Product from '../product/Product';
 import { StyledProducts } from './products.styles';
 
@@ -12,6 +11,7 @@ const Products = ({ filterActive, cart, setCart, deleteProductFromCart }) => {
 	}, []);
 
 	if (loading) return <h2>Loading...</h2>;
+
 	const sortedProducts = sortProducts(products, filterActive);
 	return (
 		<StyledProducts>

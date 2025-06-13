@@ -15,7 +15,7 @@ const CartProduct = ({ cartItem, cart, setCart, deleteProductFromCart }) => {
 			<StyledProductName>{title}</StyledProductName>
 			<StyledProductInfo>
 				<StyledProductQuantity>x{quantity}</StyledProductQuantity>
-				<StyledProductPriceSingle>@{price}</StyledProductPriceSingle>
+				<StyledProductPriceSingle>@{price.toFixed(2)}</StyledProductPriceSingle>
 				<StyledProductPriceTotal>
 					${(price * quantity).toFixed(2)}
 				</StyledProductPriceTotal>

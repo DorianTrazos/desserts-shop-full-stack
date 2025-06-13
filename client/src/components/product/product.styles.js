@@ -14,6 +14,21 @@ const StyledImageContainer = styled.div`
 	transition: outline-color 0.3s;
 `;
 
+const StyledProductStock = styled.span`
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	translate: 50% -50%;
+	background-color: ${COLORS.red};
+	color: ${COLORS.white};
+`;
+
 const StyledButton = styled.button`
 	position: absolute;
 	bottom: 0;
@@ -76,5 +91,6 @@ export {
 	StyledProduct,
 	StyledQuantity,
 	StyledQuantityIcon,
-	StyledTag
+	StyledTag,
+	StyledProductStock
 };

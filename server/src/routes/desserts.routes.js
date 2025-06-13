@@ -5,7 +5,7 @@ const dessertsRoutes = express.Router();
 // GET /products -> lista todos los productos
 dessertsRoutes.get('/', dessertsController.getProducts);
 
-// POST /products/:id/purchase -> compra un producto
-dessertsRoutes.post('/:id/purchase', dessertsController.purchaseProduct);
+// PATCH /:id/stock -> actualiza stock después de una compra
+dessertsRoutes.patch('/:id/stock', dessertsController.updateStock);
 
 module.exports = dessertsRoutes;

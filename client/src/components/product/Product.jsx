@@ -4,6 +4,7 @@ import {
 	StyledName,
 	StyledPrice,
 	StyledProduct,
+	StyledProductStock,
 	StyledQuantity,
 	StyledQuantityIcon,
 	StyledTag
@@ -25,6 +26,7 @@ const Product = ({
 					<source media='(min-width: 320px)' srcSet={product.imgMobile} />
 					<img src={product.imgMobile} alt={product.alt} />
 				</picture>
+				<StyledProductStock>{product.stock}</StyledProductStock>
 				{!isInCart && (
 					<StyledAddToCart onClick={() => addToCart(product, cart, setCart)}>
 						<img src='/assets/images/icon-add-to-cart.svg' alt='' />

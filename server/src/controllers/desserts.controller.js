@@ -22,28 +22,29 @@ dessertsController.getProducts = async (req, res) => {
 };
 
 // Comprar un producto y reducir el stock
-dessertsController.purchaseProduct = async (req, res) => {
+dessertsController.updateStock = async (req, res) => {
   const { id } = req.params;
   const { quantity } = req.body;
 
   if (!quantity || quantity <= 0) {
-    return res.status(400).json({ error: 'Invalid quantity' });
+    return res.status(400).json({ error: 'Cantidad inválida' });
   }
 
   try {
-    const product = await DessertModel.findById(id);
-    if (!product) return res.status(404).json({ error: 'Product not found' });
+    const dessert = await DessertModel.findById(id);
+    if (!dessert)
+      return res.status(404).json({ error: 'Producto no encontrado' });
 
-    if (product.stock < quantity) {
-      return res.status(400).json({ error: 'Not enough stock available' });
+    if (dessert.stock < quantity) {
+      return res.status(400).json({ error: 'Stock insuficiente' });
     }
 
-    product.stock -= quantity;
-    await DessertModel.save();
+    dessert.stock -= quantity;
+    await dessert.save();
 
-    res.json({ message: 'Purchase successful', product });
+    res.json({ message: 'Stock actualizado correctamente', product: dessert });
   } catch (err) {
-    res.status(500).json({ error: 'Error processing purchase' });
+    res.status(500).json({ error: 'Error al actualizar el stock' });
   }
 };
 
