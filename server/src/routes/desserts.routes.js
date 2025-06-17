@@ -5,7 +5,7 @@ const dessertsRoutes = express.Router();
 // GET /products -> lista todos los productos
 dessertsRoutes.get('/', dessertsController.getProducts);
 
-// PATCH /:id/stock -> actualiza stock después de una compra
-dessertsRoutes.patch('/:id/stock', dessertsController.updateStock);
+// PATCH /bulk-stock -> actualiza stock después de una compra
+dessertsRoutes.patch('/bulk-stock', dessertsController.updateBulkStock);
 
 module.exports = dessertsRoutes;

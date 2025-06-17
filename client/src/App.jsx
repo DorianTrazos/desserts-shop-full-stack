@@ -8,6 +8,7 @@ import { GlobalStyles } from './styles/GlobalStyles';
 const App = () => {
 	const [filterActive, setFilterActive] = useState(0);
 	const [cart, setCart] = useState([]);
+	const [products, setProducts] = useState([]);
 	return (
 		<>
 			<GlobalStyles />
@@ -18,10 +19,14 @@ const App = () => {
 					cart={cart}
 					setCart={setCart}
 					deleteProductFromCart={deleteProductFromCart}
+					products={products}
+					setProducts={setProducts}
 				/>
 				<Cart
 					cart={cart}
 					setCart={setCart}
+					products={products}
+					setProducts={setProducts}
 					deleteProductFromCart={deleteProductFromCart}
 				/>
 			</MainContainer>
@@ -30,7 +35,7 @@ const App = () => {
 };
 
 const deleteProductFromCart = (productId, cart, setCart) => {
-	const updatedCart = cart.filter(cartItem => cartItem.id !== productId);
+	const updatedCart = cart.filter(cartItem => cartItem._id !== productId);
 	setCart(updatedCart);
 };
 

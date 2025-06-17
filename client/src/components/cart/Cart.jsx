@@ -13,7 +13,13 @@ import {
 	StyledTotalOrderContainer
 } from './cart.styles';
 
-const Cart = ({ cart, setCart, deleteProductFromCart }) => {
+const Cart = ({
+	cart,
+	setCart,
+	products,
+	setProducts,
+	deleteProductFromCart
+}) => {
 	const [modalContent, setModalContent] = useState();
 	const isCartEmpty = cart.length === 0;
 
@@ -46,7 +52,7 @@ const Cart = ({ cart, setCart, deleteProductFromCart }) => {
 					<div>
 						{cart.map(cartItem => (
 							<CartProduct
-								key={cartItem.id}
+								key={cartItem._id}
 								cartItem={cartItem}
 								cart={cart}
 								setCart={setCart}
@@ -66,15 +72,17 @@ const Cart = ({ cart, setCart, deleteProductFromCart }) => {
 						</p>
 					</StyledCarbonNeutral>
 					<StyledCartButton
-						onClick={() =>
+						onClick={() => {
 							setModalContent(
 								<OrderModal
 									cart={cart}
 									setModalContent={setModalContent}
 									setCart={setCart}
 								/>
-							)
-						}
+							);
+
+							updateDessertsStock(cart, setProducts);
+						}}
 					>
 						Confirm Order
 					</StyledCartButton>
@@ -83,6 +91,33 @@ const Cart = ({ cart, setCart, deleteProductFromCart }) => {
 			)}
 		</StyledCart>
 	);
+};
+
+const updateDessertsStock = async (cart, setProducts) => {
+	try {
+		const response = await fetch(
+			'http://localhost:3000/api/desserts/bulk-stock',
+			{
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ cart })
+			}
+		);
+
+		const data = await response.json();
+
+		if (!response.ok) {
+			console.error('Error al actualizar stock:', data.error);
+			return;
+		}
+
+		// Actualizar productos con los datos retornados del backend
+		setProducts(data.products);
+	} catch (error) {
+		console.error('Error al comunicar con el backend:', error);
+	}
 };
 
 export default Cart;

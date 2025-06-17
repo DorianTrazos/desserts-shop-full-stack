@@ -5,15 +5,7 @@ const dessertsController = {};
 // Obtener todos los productos
 dessertsController.getProducts = async (req, res) => {
   try {
-    const productsFromDb = await DessertModel.find().lean();
-
-    const products = productsFromDb.map(product => {
-      const { _id, ...rest } = product;
-      return {
-        id: _id.toString(),
-        ...rest
-      };
-    });
+    const products = await DessertModel.find().lean();
 
     res.json(products);
   } catch (err) {
@@ -44,6 +36,51 @@ dessertsController.updateStock = async (req, res) => {
 
     res.json({ message: 'Stock actualizado correctamente', product: dessert });
   } catch (err) {
+    res.status(500).json({ error: 'Error al actualizar el stock' });
+  }
+};
+
+dessertsController.updateBulkStock = async (req, res) => {
+  const cart = req.body.cart;
+  console.log(cart);
+
+  if (!Array.isArray(cart) || cart.length === 0) {
+    return res.status(400).json({ error: 'Carrito vacío o malformado' });
+  }
+
+  try {
+    const updatedProducts = [];
+
+    for (const item of cart) {
+      const dessert = await DessertModel.findById(item._id);
+
+      if (!dessert) {
+        return res
+          .status(404)
+          .json({ error: `Producto no encontrado: ${item._id}` });
+      }
+
+      if (dessert.stock < item.quantity) {
+        return res
+          .status(400)
+          .json({ error: `Stock insuficiente para ${dessert.name}` });
+      }
+
+      dessert.stock -= item.quantity;
+      await dessert.save();
+
+      updatedProducts.push(dessert);
+    }
+
+    const allProducts = await DessertModel.find();
+
+    res.json({
+      message: 'Stock actualizado exitosamente',
+      updated: updatedProducts,
+      products: allProducts
+    });
+  } catch (error) {
+    console.error('Error en actualización de stock:', error);
     res.status(500).json({ error: 'Error al actualizar el stock' });
   }
 };

@@ -40,7 +40,7 @@ const Product = ({
 							alt='icon cart'
 							onClick={() =>
 								decrementQuantity(
-									product.id,
+									product._id,
 									cart,
 									setCart,
 									deleteProductFromCart
@@ -51,7 +51,7 @@ const Product = ({
 						<StyledQuantityIcon
 							src='/assets/images/icon-increment-quantity.svg'
 							alt='icon cart'
-							onClick={() => incrementQuantity(product.id, cart, setCart)}
+							onClick={() => incrementQuantity(product._id, cart, setCart)}
 						/>
 					</StyledQuantity>
 				)}
@@ -69,14 +69,14 @@ const addToCart = (product, cart, setCart) => {
 };
 
 const incrementQuantity = (productId, cart, setCart) => {
-	const productToUpdate = cart.find(cartItem => cartItem.id === productId);
+	const productToUpdate = cart.find(cartItem => cartItem._id === productId);
 	if (!productToUpdate) return;
 	productToUpdate.quantity++;
 	setCart([...cart]);
 };
 
 const decrementQuantity = (productId, cart, setCart, deleteProductFromCart) => {
-	const productToUpdate = cart.find(cartItem => cartItem.id === productId);
+	const productToUpdate = cart.find(cartItem => cartItem._id === productId);
 
 	if (!productToUpdate) return;
 
@@ -87,11 +87,6 @@ const decrementQuantity = (productId, cart, setCart, deleteProductFromCart) => {
 	}
 
 	deleteProductFromCart(productId, cart, setCart);
-};
-
-const deleteProductFromCart = (productId, cart, setCart) => {
-	const updatedCart = cart.filter(cartItem => cartItem.id !== productId);
-	setCart(updatedCart);
 };
 
 export default Product;

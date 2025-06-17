@@ -9,7 +9,7 @@ import {
 } from './cart-product.styles';
 
 const CartProduct = ({ cartItem, cart, setCart, deleteProductFromCart }) => {
-	const { id, title, quantity, price } = cartItem;
+	const { _id, title, quantity, price } = cartItem;
 	return (
 		<StyledCartProduct>
 			<StyledProductName>{title}</StyledProductName>
@@ -22,7 +22,7 @@ const CartProduct = ({ cartItem, cart, setCart, deleteProductFromCart }) => {
 				<StyledIconRemove
 					src='/assets/images/icon-remove-item.svg'
 					alt='delete product icon'
-					onClick={() => deleteProductFromCart(id, cart, setCart)}
+					onClick={() => deleteProductFromCart(_id, cart, setCart)}
 				/>
 			</StyledProductInfo>
 		</StyledCartProduct>

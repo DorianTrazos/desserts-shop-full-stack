@@ -14,7 +14,7 @@ const OrderModal = ({ cart, setModalContent, setCart }) => {
 			<h2>Order Confirmed</h2>
 			<p>We hope you enjoy your food!</p>
 			{cart.map(cartItem => (
-				<StyledOrderProducts key={cartItem.id}>
+				<StyledOrderProducts key={cartItem._id}>
 					<StyledOrderProduct>
 						<img src={cartItem.imgThumbnail} alt={cartItem.alt} />
 						<div>

@@ -2,8 +2,14 @@ import { useEffect, useState } from 'react';
 import Product from '../product/Product';
 import { StyledProducts } from './products.styles';
 
-const Products = ({ filterActive, cart, setCart, deleteProductFromCart }) => {
-	const [products, setProducts] = useState([]);
+const Products = ({
+	filterActive,
+	cart,
+	setCart,
+	products,
+	setProducts,
+	deleteProductFromCart
+}) => {
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
@@ -16,10 +22,10 @@ const Products = ({ filterActive, cart, setCart, deleteProductFromCart }) => {
 	return (
 		<StyledProducts>
 			{sortedProducts.map(product => {
-				const isInCart = cart.some(cartItem => cartItem.id === product.id);
+				const isInCart = cart.some(cartItem => cartItem._id === product._id);
 				return (
 					<Product
-						key={product.id}
+						key={product._id}
 						product={product}
 						isInCart={isInCart}
 						cart={cart}
