@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const MONGODB_URL =
-  'mongodb+srv://dorianoriginaldesings:JoIgiX5SJeJrxNUg@mongo-trazos.5ahucgo.mongodb.net/exercises?retryWrites=true&w=majority&appName=mongo-trazos';
+  'mongodb+srv://dorianoriginaldesings:ow8uGojzVtq8R3UJ@mongo-trazos.5ahucgo.mongodb.net/exercises?retryWrites=true&w=majority&appName=mongo-trazos';
 
 const connectDB = async () => {
   try {
